@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:semesterproject/Tasks.dart';
 import 'package:semesterproject/profile.dart';
@@ -15,6 +16,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
   int _selectedPage = 0;
   PageController pageController = PageController();
 
@@ -68,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: PageView(
         controller: pageController,
-        children: const [
+        children: [
           HomePage(),
           CalendarPage(),
           // BookmarksPage(

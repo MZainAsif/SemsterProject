@@ -7,7 +7,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:semesterproject/home.dart';
 
 class SignupPage extends StatefulWidget {
-  const SignupPage({super.key});
+  const SignupPage({
+    super.key,
+  });
 
   @override
   _SignupPageState createState() => _SignupPageState();

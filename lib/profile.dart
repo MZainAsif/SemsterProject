@@ -49,7 +49,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (_) => const MyHomePage(),
+                builder: (_) => MyHomePage(),
               ),
             );
           },

@@ -1,7 +1,6 @@
-// ignore_for_file: library_private_types_in_public_api, file_names
-
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CalendarPage extends StatefulWidget {
   const CalendarPage({Key? key}) : super(key: key);
@@ -16,17 +15,13 @@ class _CalendarPageState extends State<CalendarPage> {
   DateTime? _selectedDay;
   Map<DateTime, List<String>> events = {};
 
+  // Create an instance of Firestore
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      // appBar: AppBar(
-      //   elevation: 0.0,
-      //   centerTitle: true,
-      //   backgroundColor: Colors.white,
-      //   automaticallyImplyLeading: false,
-      //   title: const Text('Calendar'),
-      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -63,16 +58,18 @@ class _CalendarPageState extends State<CalendarPage> {
             if (_selectedDay != null && events.containsKey(_selectedDay))
               Column(
                 children: events[_selectedDay]!
-                    .map((event) => ListTile(
-                          title: Text(
-                            event,
-                            style: const TextStyle(
-                              color: Colors.black,
-                              wordSpacing: 2,
-                              fontSize: 20,
-                            ),
+                    .map(
+                      (event) => ListTile(
+                        title: Text(
+                          event,
+                          style: const TextStyle(
+                            color: Colors.black,
+                            wordSpacing: 2,
+                            fontSize: 20,
                           ),
-                        ))
+                        ),
+                      ),
+                    )
                     .toList(),
               ),
           ],
@@ -105,6 +102,11 @@ class _CalendarPageState extends State<CalendarPage> {
             ElevatedButton(
               onPressed: () {
                 if (eventTitle.isNotEmpty && _selectedDay != null) {
+                  firestore.collection('users').doc().collection('events').add({
+                    'date': _selectedDay!.toIso8601String(),
+                    'title': eventTitle,
+                  });
+
                   setState(() {
                     events[_selectedDay!] ??= [];
                     events[_selectedDay!]!.add(eventTitle);

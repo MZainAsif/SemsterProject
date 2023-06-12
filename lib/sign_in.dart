@@ -8,7 +8,9 @@ import 'package:semesterproject/reusable_widgets.dart';
 import 'package:semesterproject/signup.dart';
 
 class SignIN extends StatefulWidget {
-  const SignIN({Key? key}) : super(key: key);
+  const SignIN({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _SignINState createState() => _SignINState();
@@ -31,8 +33,7 @@ class _SignINState extends State<SignIN> {
         password: passwordTextController.text,
       );
       // ignore: use_build_context_synchronously
-      Navigator.push(
-          context, MaterialPageRoute(builder: (_) => const MyHomePage()));
+      Navigator.push(context, MaterialPageRoute(builder: (_) => MyHomePage()));
       print('User logged in: ${userCredential.user?.email}');
       Fluttertoast.showToast(msg: 'Login successful!');
     } on FirebaseAuthException catch (e) {
@@ -89,7 +90,7 @@ class _SignINState extends State<SignIN> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => const SignupPage(),
+                          builder: (_) => SignupPage(),
                         ),
                       );
                     },

@@ -26,7 +26,7 @@ class SplashServices {
         () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (_) => const SignIN(),
+            builder: (_) => SignIN(),
           ),
         ),
       );
